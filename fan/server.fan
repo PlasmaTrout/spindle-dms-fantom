@@ -3,7 +3,7 @@ using web
 using wisp
 using fandoc
 
-class WebHello : AbstractMain
+class WebServer : AbstractMain
 {
     @Opt { help = "http port" }
     Int port := 8080
@@ -26,9 +26,15 @@ const class SpindleMod : WebMod
     {
         u := req.uri.path
         repo := u[0].lower
-        
+        //echo("path root is $repo")
+
         if(repo == "api"){
             res.out.print("The api junk goes here!")
+        }else if(repo == "sitemap.xml")
+        {
+            res.headers["Content-Type"] = "application/xml; charset=utf-8"
+            gen := SitemapGenerator.make(req.uri)
+            res.out.print("sitemap.xml goes here!")
         }else{
               
             // Create a writeable list and remove the repo from the path
