@@ -1,0 +1,18 @@
+**************************************************************************
+** author:     Jeff Downing
+** created:    17 Jan 2016
+** copyright:  Copyright (c) 2016
+** license:    I have no idea
+** title: Test Title Pickup
+**************************************************************************
+ 
+This is an index.fandoc page
+###################
+
+This page is loaded whenever someone tries to navigate just to a directory. In an index file does not exist in the directory then basically a 404 will be generated. For now.
+
+The test page that tests markdown can be found [here]`http://localhost:8080/test-repo/testdoc.fandoc`
+
+
+
+

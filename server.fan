@@ -13,21 +13,20 @@ class WebHello : AbstractMain
         wisp := WispService
         {
             it.port = this.port
-            it.root = HelloMod()
+            it.root = SpindleMod()
         }
 
         return runServices([wisp])
     }
 }
 
-const class HelloMod : WebMod
+const class SpindleMod : WebMod
 {
     override Void onGet()
     {
         u := req.uri.path
         repo := u[0].lower
         
-        res.headers["Content-Type"] = contentTypeFor(req.uri.ext) 
         if(repo == "api"){
             res.out.print("The api junk goes here!")
         }else{
@@ -37,11 +36,17 @@ const class HelloMod : WebMod
             newlist.remove(u[0])
             // The rest we will take literally from here on out
             rest := newlist.join("/")
-            file := File.make(`repos/$repo/$rest`)
+            file := File.make(`repos/$repo/$rest`,false)
+            
+            if(file.isDir)
+            {
+                file = file.plus(`index.fandoc`)
+            }
 
-            if(file.exists){
+            if(file.exists && !file.isDir){
+                res.headers["Content-Type"] = contentTypeFor(file.uri.ext) 
                 buffer := file.open("r")
-                if(req.uri.ext == "fandoc")
+                if(file.uri.ext == "fandoc")
                 {
                     doc := FandocParser.make.parse("test",buffer.in)
                     writeHtml(doc,file)
@@ -49,6 +54,7 @@ const class HelloMod : WebMod
                     res.out.writeBuf(file.open)
                 }
             }else{
+                res.headers["Content-Type"] = "text/plain; charset=utf-8" 
                 res.out.print("The file ($file) does not exist!")
             }   
         }
