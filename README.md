@@ -11,7 +11,9 @@ Spindle is a fantom based application, to get started you just need the latest v
 navigate into this repositories base direction and run:
 
 ```
-fantom server.fan
+cd repository
+fan build.fan
+fan spindle::WebServer
 ```
 
 To start it up. Then navigate to:
