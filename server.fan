@@ -62,6 +62,8 @@ const class HelloMod : WebMod
         {
             case "css":
                 type = "text/css"
+            case "js":
+                type = "application/javascript"
             default:
                 type = "text/html"
         }
@@ -77,21 +79,19 @@ const class HelloMod : WebMod
         out.html
         out.head
             output.docHead(body)
-            gatherRootStylesheets(repo).each | File file, Int idx |
+            repo.plus(`css/`).list.each | File file, Int idx |
             {
                 out.includeCss(file.uri.relTo(repo.uri))
+            }
+            repo.plus(`js/`).list.each | File file, Int idx |
+            {
+                out.includeJs(file.uri.relTo(repo.uri))
             }
         out.headEnd
         out.body
                 body.writeChildren(output)
         out.bodyEnd
         out.htmlEnd
-    }
-
-    File[] gatherRootStylesheets(File repo)
-    {
-        files := repo.plus(`css/`).list
-        return files 
     }
 
 }
