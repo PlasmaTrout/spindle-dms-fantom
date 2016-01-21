@@ -33,8 +33,8 @@ const class SpindleMod : WebMod
         }else if(repo == "sitemap.xml")
         {
             res.headers["Content-Type"] = "application/xml; charset=utf-8"
-            gen := SitemapGenerator.make(req.uri)
-            res.out.print("sitemap.xml goes here!")
+            gen := SitemapGenerator.make(`repos/test-repo/`,"$req.absUri.scheme://$req.absUri.auth")
+            gen.generate.write(res.out)
         }else{
               
             // Create a writeable list and remove the repo from the path
