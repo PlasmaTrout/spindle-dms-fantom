@@ -6,6 +6,21 @@ a specifically structured git repositories. Is uses these repositories to serve 
 You can think of it vaguely as jekyl but with the content itself being stored in a git repository that the server monitors
 and pull when publishes occur.
 
+## Early Hacking
+Spindle is a fantom based application, to get started you just need the latest version from fantom.org and
+navigate into this repositories base direction and run:
+
+```
+fantom server.fan
+```
+
+To start it up. Then navigate to:
+
+```
+http://localhost:8080/test-repo/testdoc.fandoc
+```
+
+To make sure its working.
 ## Content Idea 
 The main idea of content creation is to use a form of markdown to make creating the pages easier at the same time using
 wordpress'esque plugin syntax to allow dynamic content and customizations.
